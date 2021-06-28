@@ -61,24 +61,29 @@ void	*ft_print_memory(void *addr, unsigned int size)
 	end = (unsigned long)addr + size;
 	while ((unsigned long)addr < end)
 	{
-		int i;
+		int	i;
 	
 		put_buf((unsigned long)addr, 16);
 		put_hex((unsigned long)addr);
 		write(1, ": ", 2);
 		
 		i=0;
-		while (i < 0x8)
+		while (i < 0x10)
 		{
-			if (addr + (i*2) >= end)
-				break;
-			short hex = *((short *)addr + i);
-			put_buf(hex, 4);
-			put_hex(hex);
+			if (addr + i >= end)
+			{
+				write(1, "  ", 2);
+			}
+			else
+			{
+				char hex = *((char *)addr + i);
+				put_buf(hex, 2);
+				put_hex(hex);
+			}
+			if (i % 2 == 1)
+				put_char(' ');
 			i++;
-			put_char(' ');
 		}
-
 		i=0;
 		while (i < 0x10)
 		{
@@ -90,15 +95,4 @@ void	*ft_print_memory(void *addr, unsigned int size)
 		addr += 0x10;
 		put_char('\n');
 	}
-}
-
-int main()
-{
-	char *str = "hello world!\n";
-	char *str2 = "hello world!\n no no no fuck yeah!!!!??, .,";
-	char *str3 = "";
-	ft_print_memory(str, strlen(str)+1);
-	ft_print_memory(str2, strlen(str2)+1);
-	ft_print_memory(str3, strlen(str3)+1);
-
 }

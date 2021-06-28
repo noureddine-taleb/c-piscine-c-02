@@ -37,8 +37,3 @@ void	ft_putstr_non_printable(char *str)
 		str++;
 	}
 }
-
-int main(int argc, char **argv)
-{
-	ft_putstr_non_printable(argv[1]);
-}

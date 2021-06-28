@@ -1,15 +1,16 @@
 unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
 {
-	unsigned int	i;
+	unsigned int	len;
 
-	i = 0;
-	if (!size)
-		return i;
-	while(--size)
+	len = 0;
+	while (src[len])
+	{
+		len++;
+	}
+	while(*src && --size > 0)
 	{
 		*dest++ = *src++;
-		i++;
 	}
 	*dest = 0;
-	return ++i;
+	return (len);
 }

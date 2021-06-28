@@ -1,4 +1,4 @@
-int ft_str_is_printable(char *str)
+int	ft_str_is_printable(char *str)
 {
 	while (*str)
 	{

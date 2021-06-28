@@ -1,9 +1,7 @@
-void put_char(char c)
-{
-	write(1, &c, 1);
-}
+#include <unistd.h>
+#include <string.h>
 
-void put_char2(char c)
+void	put_char(char c)
 {
 	if (c >= 32 && c <= 126)
 	{
@@ -16,28 +14,30 @@ void put_char2(char c)
 	}
 }
 
-void _put_hex(char hex)
-{
-	if (hex >= 0x0 && hex <= 0x9)
-	{
-		put_char(hex + '0');
-	}
-	else if(hex >= 0xa && hex <= 0xf)
-	{
-		put_char(hex - 0xa + 'a');
-	}
-}
-
-void put_hex(unsigned long h)
+void	put_hex(unsigned long h)
 {
 	if (h <= 0xf && h > 0x0)
 	{
-		_put_hex(h);
+		if (h >= 0x0 && h <= 0x9)
+		{
+			put_char(h + '0');
+		}
+		else if (h >= 0xa && h <= 0xf)
+		{
+			put_char(h - 0xa + 'a');
+		}
 	}
 	else if (h > 0xf)
 	{
 		put_hex(h >> 4);
-		_put_hex(h % 0x10);
+		if ((h % 0x10) >= 0x0 && (h % 0x10) <= 0x9)
+		{
+			put_char((h % 0x10) + '0');
+		}
+		else if ((h % 0x10) >= 0xa && (h % 0x10) <= 0xf)
+		{
+			put_char((h % 0x10) - 0xa + 'a');
+		}
 	}
 }
 
@@ -54,45 +54,43 @@ void	put_buf(unsigned long n, int count)
 	}
 }
 
+void	print_line(void *addr, void *end)
+{
+	int				i;
+	char			hex;
+
+	put_buf((unsigned long)addr, 16), put_hex((unsigned long)addr);
+	write(1, ": ", 2), i = 0;
+	while (i < 0x10)
+	{
+		if (addr + i >= end)
+			write(1, "  ", 2);
+		else
+			hex = *((char *)addr + i), put_buf(hex, 2), put_hex(hex);
+		if (i++ % 2 == 1)
+			put_char(' ');
+	}
+	i = 0;
+	while (i < 0x10)
+	{
+		if (addr + i >= end)
+			break ;
+		put_char(*((char *)addr + i)), i++;
+	}
+	write(1, "\n", 1);
+}
+
 void	*ft_print_memory(void *addr, unsigned int size)
 {
-	unsigned long end;
+	void	*end;
+	int		i;
 
-	end = (unsigned long)addr + size;
-	while ((unsigned long)addr < end)
+	i = 0;
+	end = addr + size;
+	while ((addr + (0x10 * i)) < end)
 	{
-		int	i;
-	
-		put_buf((unsigned long)addr, 16);
-		put_hex((unsigned long)addr);
-		write(1, ": ", 2);
-		
-		i=0;
-		while (i < 0x10)
-		{
-			if (addr + i >= end)
-			{
-				write(1, "  ", 2);
-			}
-			else
-			{
-				char hex = *((char *)addr + i);
-				put_buf(hex, 2);
-				put_hex(hex);
-			}
-			if (i % 2 == 1)
-				put_char(' ');
-			i++;
-		}
-		i=0;
-		while (i < 0x10)
-		{
-			if (addr + i >= end)
-				break;
-			put_char2(*((char *)addr + i));
-			i++;
-		}
-		addr += 0x10;
-		put_char('\n');
+		print_line(addr + (0x10 * i), end);
+		i++;
 	}
+	return (addr);
 }

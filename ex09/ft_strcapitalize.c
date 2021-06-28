@@ -19,7 +19,7 @@ int	is_alphanum(char c)
 	if (c >= 'A' && c <= 'Z')
 		return (1);
 	if (c >= '1' && c <= '9')
-		return 1;
+		return (1);
 	return (0);
 }
 
@@ -35,7 +35,7 @@ char	*ft_strcapitalize(char *str)
 
 	i = 0;
 	if (!str[i])
-		return str;
+		return (str);
 	ft_strlowcase(str);
 	if (is_alphanum(str[i]))
 	{
@@ -44,7 +44,7 @@ char	*ft_strcapitalize(char *str)
 	i++;
 	while (str[i])
 	{
-		if (is_alphanum(str[i]) && !is_alphanum(str[i-1]))
+		if (is_alphanum(str[i]) && !is_alphanum(str[i - 1]))
 		{
 			ctoupper(&str[i]);
 		}

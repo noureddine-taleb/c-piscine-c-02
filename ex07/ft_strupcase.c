@@ -1,4 +1,4 @@
-char *ft_strupcase(char *str)
+char	*ft_strupcase(char *str)
 {
 	unsigned int	i;
 

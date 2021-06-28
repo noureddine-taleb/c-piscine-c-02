@@ -28,7 +28,7 @@ void	ft_putstr_non_printable(char *str)
 {
 	while (*str)
 	{
-		if (*str >= 32 && *str <= 127)
+		if (*str >= 32 && *str <= 126)
 			write(1, str, 1);
 		else
 		{

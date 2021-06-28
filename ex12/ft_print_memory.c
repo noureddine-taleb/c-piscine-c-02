@@ -5,7 +5,7 @@ void put_char(char c)
 
 void put_char2(char c)
 {
-	if (c >= 32 && c <= 127)
+	if (c >= 32 && c <= 126)
 	{
 		write(1, &c, 1);
 	}
@@ -30,7 +30,7 @@ void _put_hex(char hex)
 
 void put_hex(unsigned long h)
 {
-	if (h <= 0xf && h >= 0x0)
+	if (h <= 0xf && h > 0x0)
 	{
 		_put_hex(h);
 	}
@@ -65,8 +65,7 @@ void	*ft_print_memory(void *addr, unsigned int size)
 	
 		put_buf((unsigned long)addr, 16);
 		put_hex((unsigned long)addr);
-		put_char(':');
-		put_char(' ');
+		write(1, ": ", 2);
 		
 		i=0;
 		while (i < 0x8)
@@ -96,10 +95,10 @@ void	*ft_print_memory(void *addr, unsigned int size)
 int main()
 {
 	char *str = "hello world!\n";
-	// char *str2 = "hello world!\n no no no fuck yeah!!!!??, .,";
-	// char *str3 = "";
+	char *str2 = "hello world!\n no no no fuck yeah!!!!??, .,";
+	char *str3 = "";
 	ft_print_memory(str, strlen(str)+1);
-	// ft_print_memory(str2, strlen(str2)+1);
-	// ft_print_memory(str3, strlen(str)+1);
+	ft_print_memory(str2, strlen(str2)+1);
+	ft_print_memory(str3, strlen(str3)+1);
 
 }

@@ -17,7 +17,7 @@ void	_put_hex(char hex)
 	}
 }
 
-void	put_hex(char c)
+void	put_hex(unsigned char c)
 {
 	put_char('\\');
 	_put_hex(c >> 4);
@@ -31,9 +31,7 @@ void	ft_putstr_non_printable(char *str)
 		if (*str >= 32 && *str <= 126)
 			write(1, str, 1);
 		else
-		{
 			put_hex(*str);
-		}
 		str++;
 	}
 }

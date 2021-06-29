@@ -1,13 +1,9 @@
-#include <stdio.h>
-
 void	ft_strlowcase(char *str)
 {
 	while (*str)
 	{
 		if (*str >= 'A' && *str <= 'Z')
-		{
 			*str += 32;
-		}
 		str++;
 	}
 }
@@ -18,7 +14,7 @@ int	is_alphanum(char c)
 		return (1);
 	if (c >= 'A' && c <= 'Z')
 		return (1);
-	if (c >= '1' && c <= '9')
+	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }
@@ -38,17 +34,14 @@ char	*ft_strcapitalize(char *str)
 		return (str);
 	ft_strlowcase(str);
 	if (is_alphanum(str[i]))
-	{
 		ctoupper(str);
-	}
 	i++;
 	while (str[i])
 	{
 		if (is_alphanum(str[i]) && !is_alphanum(str[i - 1]))
-		{
 			ctoupper(&str[i]);
-		}
 		i++;
 	}
 	return (str);
 }
+

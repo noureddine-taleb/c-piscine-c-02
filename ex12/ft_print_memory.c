@@ -1,7 +1,7 @@
 #include <unistd.h>
 #include <string.h>
 
-void	put_char(char c)
+void	put_char(unsigned char c)
 {
 	if (c >= 32 && c <= 126)
 	{
@@ -56,8 +56,8 @@ void	put_buf(unsigned long n, int count)
 
 void	print_line(void *addr, void *end)
 {
-	int				i;
-	char			hex;
+	unsigned int			i;
+	unsigned char			hex;
 
 	put_buf((unsigned long)addr, 16), put_hex((unsigned long)addr);
 	write(1, ": ", 2), i = 0;

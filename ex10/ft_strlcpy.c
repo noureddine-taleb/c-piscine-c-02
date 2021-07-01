@@ -1,18 +1,16 @@
 unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
 {
-	unsigned int	len;
-	unsigned int	i;
+	unsigned int	srclen;
 
-	len = 0;
-	i = 0;
-	while (src[len])
-		len++;
-	while (src[i] && i < (size - 1))
+	srclen = ft_strlen(src);
+	if ((srclen + 1) < size)
 	{
-		dest[i] = src[i];
-		i++;
+		ft_memcpy(dest, src, srclen + 1);
 	}
-	if (size)
-		dest[i] = 0;
-	return (len);
+	else if (size != 0)
+	{
+		ft_memcpy(dest, src, size - 1);
+		dest[size - 1] = '\0';
+	}
+	return (srclen);
 }
